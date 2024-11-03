@@ -1,0 +1,27 @@
+{
+  "name": "typescript-fp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "test": "jest --runInBand",
+    "run": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.0.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "monet": "^0.9.3",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.2.3",
+    "ts-pattern": "^5.3.1",
+    "typescript": "^5.6.3"
+  }
+}
