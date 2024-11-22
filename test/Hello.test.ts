@@ -80,7 +80,9 @@ describe("Hello", () => {
     }
   }
   it("Hello Implementation with types", async () => {
-    const messageTyped: MessageServiceTyped = new MessageServiceTyped(messageGeneratorTyped());
+    const messageTyped: MessageServiceTyped = new MessageServiceTyped(
+      messageGeneratorTyped(),
+    );
     const helloTyped: HelloTyped = new HelloTyped(messageTyped);
     typedResponses.forEach(async (expected, i) => {
       index = i;

@@ -1,15 +1,9 @@
-import {
-  IMessage,
-  MessageServiceNaive,
-  MessageServiceTyped,
-  MessageTyped,
-  MessageEnum,
-} from "../message";
-import {P, match } from "ts-pattern";
+import { MessageServiceTyped, MessageTyped, MessageEnum } from "../message";
+import { P, match } from "ts-pattern";
 import { IResponse } from "./";
 
 export class HelloTyped {
-    private messageService: MessageServiceTyped;
+  private messageService: MessageServiceTyped;
 
   constructor(messageService: MessageServiceTyped) {
     this.messageService = messageService;
@@ -21,20 +15,27 @@ export class HelloTyped {
   }
 
   private handleResponse(msg: MessageTyped): IResponse<MessageTyped> {
-    return match(msg).with(
-      { type: MessageEnum.Typescript},
-      (m: MessageTyped) => ({ status: 200, body: m } as IResponse<MessageTyped>)
-    ).with(
-      {type: MessageEnum.Functional},
-      (m: MessageTyped) => ({ status: 200, body: m } as IResponse<MessageTyped>)
-    ).with(
-      {type: MessageEnum.Error},
-      (m: MessageTyped) => ({ status: 400, body: m } as IResponse<MessageTyped>)
-    ).with(
-      {type: MessageEnum.Kernel},
-      (m: MessageTyped) => ({ status: 500, body: m } as IResponse<MessageTyped>)
-    )
-    .exhaustive();
+    return match(msg)
+      .with(
+        { type: MessageEnum.Typescript },
+        (m: MessageTyped) =>
+          ({ status: 200, body: m }) as IResponse<MessageTyped>,
+      )
+      .with(
+        { type: MessageEnum.Functional },
+        (m: MessageTyped) =>
+          ({ status: 200, body: m }) as IResponse<MessageTyped>,
+      )
+      .with(
+        { type: MessageEnum.Error },
+        (m: MessageTyped) =>
+          ({ status: 400, body: m }) as IResponse<MessageTyped>,
+      )
+      .with(
+        { type: MessageEnum.Kernel },
+        (m: MessageTyped) =>
+          ({ status: 500, body: m }) as IResponse<MessageTyped>,
+      )
+      .exhaustive();
   }
-
-};
+}

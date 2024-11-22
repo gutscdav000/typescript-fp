@@ -5,7 +5,7 @@ import {
   MessageTyped,
   MessageEnum,
 } from "../message";
-import {P, match } from "ts-pattern";
+import { P, match } from "ts-pattern";
 
 export interface IResponse<T> {
   status: number;
@@ -21,7 +21,7 @@ export class HelloNaive {
 
   getMessageResponse(): Promise<IResponse<IMessage>> {
     const msg = this.messageService.getMessage();
-    return Promise.resolve(this.handleResponseV2(msg));
+    return Promise.resolve(this.handleResponseV1(msg));
   }
 
   private handleResponseV1(msg: IMessage): IResponse<IMessage> {
@@ -33,8 +33,7 @@ export class HelloNaive {
       return { status: 200, body: msg } as IResponse<IMessage>;
     else if (message.includes("error"))
       return { status: 400, body: msg } as IResponse<IMessage>;
-    else
-      return { status: 500, body: msg } as IResponse<IMessage>;
+    else return { status: 500, body: msg } as IResponse<IMessage>;
   }
 
   private handleResponseV2(msg: IMessage): IResponse<IMessage> {
@@ -42,15 +41,16 @@ export class HelloNaive {
     return match(message)
       .with(
         P.when((s) => s.includes("functional programming")),
-        (s) => ({ status: 200, body: msg } as IResponse<IMessage>)
+        (s) => ({ status: 200, body: msg }) as IResponse<IMessage>,
       )
       .with(
         P.when((s) => s.includes("typescript")),
-        (s) => ({ status: 200, body: msg } as IResponse<IMessage>)
+        (s) => ({ status: 200, body: msg }) as IResponse<IMessage>,
       )
       .with(
         P.when((s) => s.includes("error")),
-        (s) => ({ status: 400, body: msg } as IResponse<IMessage>)
-      ).otherwise(() => ({ status: 500, body: msg } as IResponse<IMessage>))
+        (s) => ({ status: 400, body: msg }) as IResponse<IMessage>,
+      )
+      .otherwise(() => ({ status: 500, body: msg }) as IResponse<IMessage>);
   }
 }
